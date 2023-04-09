@@ -43,9 +43,10 @@ def getTool(angle1, angle2):
     Parameters:
     angle1 (int) : angle from surgeon
     angle2 (int) :angle to tool
+    
     Returns:
     None
-    gets tool
+    
     """
     arm.setPosition([[1,240],[2, 515],[3,840],[4,280],[5,475],[6,angle1]])
     time.sleep(3)
@@ -100,7 +101,7 @@ while(surgery):
             #put string into lower case for easier text matching
             voice_to_text = voice_to_text.lower() #why do you think we made this lowercase?
             print(voice_to_text)
-            
+           
     except sr.UnknownValueError:
         pass
         
