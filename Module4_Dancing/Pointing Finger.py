@@ -79,19 +79,7 @@ with mp_hands.Hands(
         
         
         # Determine direction based on x and y coordinates
-        if x < image.shape[1]/2:
-            direction = "left"
-            #arm.setPosition(6, 850, wait=False)
-            new_thread = threading.Thread(target=movement, args=([direction]))
-            new_thread.daemon = True
-            new_thread.start()
-        else:
-            direction = "right"
-            #arm.setPosition(4, 610, wait=False)
-            new_thread = threading.Thread(target=movement, args=([direction]))
-            new_thread.daemon = True
-            new_thread.start()
-        print(direction)
+        
         
         if y < image.shape[0]/2:
             if x < image.shape[1]/2:
