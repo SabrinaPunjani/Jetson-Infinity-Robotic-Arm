@@ -50,24 +50,29 @@ with mp_hands.Hands(
         index_finger = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
         x, y, z = int(index_finger.x * image.shape[1]), int(index_finger.y * image.shape[0]), int(index_finger.z * image.shape[1])
         def movement(direction):
-          if direction == "left":
+          if direction == "upleft":
+            arm.setPosition(4, 610, wait=False)
+            arm.setPosition(5, 650, wait=False)
             arm.setPosition(6, 850, wait=False)
             return
             #time.sleep(3)
             #arm.setPosition([[1,500],[2, 500],[3, 300],[4,500],[5,500],[6,840]])
-          elif direction == "right":
+          elif direction == "downright":
             arm.setPosition(6, 165, wait=False)
+            arm.setPosition(4, 900, wait=False)
+            arm.setPosition(5, 420, wait=False)
             return
             #time.sleep(3)
             #arm.setPosition([[1,500],[2, 500],[3, 300],[4,500],[5,500],[6,165]])
-          elif direction =="up":
+          elif direction =="upright":
             arm.setPosition(4, 610, wait=False)
             arm.setPosition(5, 650, wait=False)
+            arm.setPosition(6, 165, wait=False)
             return
             #time.sleep(3)
             #arm.setPosition([[1,300],[2, 500],[3, 475],[4,410],[5,700],[6,500]])
-          elif direction =="down":
-            
+          elif direction =="downleft":
+            arm.setPosition(6, 850, wait=False)
             #time.sleep(3)
             arm.setPosition(4, 900, wait=False)
             arm.setPosition(5, 420, wait=False)
@@ -83,50 +88,50 @@ with mp_hands.Hands(
         
         if y < image.shape[0]/2:
             if x < image.shape[1]/2:
-              direction = "left"
+              direction = "upleft"
               #arm.setPosition(6, 850, wait=False)
               new_thread = threading.Thread(target=movement, args=([direction]))
               new_thread.daemon = True
               new_thread.start()
-              direction = "up"
-              #arm.setPosition(4, 610, wait=False)
-              new_thread = threading.Thread(target=movement, args=([direction]))
-              new_thread.daemon = True
-              new_thread.start()
+              # direction = "up"
+              # #arm.setPosition(4, 610, wait=False)
+              # new_thread = threading.Thread(target=movement, args=([direction]))
+              # new_thread.daemon = True
+              # new_thread.start()
             else:
-              direction = "right"
+              direction = "upright"
               #arm.setPosition(6, 850, wait=False)
-              new_thread = threading.Thread(target=movement, args=([direction]))
-              new_thread.daemon = True
-              new_thread.start()
-              direction = "up"
+              # new_thread = threading.Thread(target=movement, args=([direction]))
+              # new_thread.daemon = True
+              # new_thread.start()
+              # direction = "up"
               #arm.setPosition(4, 610, wait=False)
               new_thread = threading.Thread(target=movement, args=([direction]))
               new_thread.daemon = True
               new_thread.start()
         else:
             if x < image.shape[1]/2:
-              direction = "left"
+              direction = "downleft"
               #arm.setPosition(6, 850, wait=False)
-              new_thread = threading.Thread(target=movement, args=([direction]))
-              new_thread.daemon = True
-              new_thread.start()
-              direction = "down"
+              # new_thread = threading.Thread(target=movement, args=([direction]))
+              # new_thread.daemon = True
+              # new_thread.start()
+              # direction = "down"
               #arm.setPosition(4, 610, wait=False)
               new_thread = threading.Thread(target=movement, args=([direction]))
               new_thread.daemon = True
               new_thread.start()
             else:
-              direction = "right"
+              direction = "downright"
               #arm.setPosition(6, 850, wait=False)
               new_thread = threading.Thread(target=movement, args=([direction]))
               new_thread.daemon = True
               new_thread.start()
-              direction = "down"
-              #arm.setPosition(4, 610, wait=False)
-              new_thread = threading.Thread(target=movement, args=([direction]))
-              new_thread.daemon = True
-              new_thread.start()
+              # direction = "down"
+              # #arm.setPosition(4, 610, wait=False)
+              # new_thread = threading.Thread(target=movement, args=([direction]))
+              # new_thread.daemon = True
+              # new_thread.start()
         
         print(direction)
         
