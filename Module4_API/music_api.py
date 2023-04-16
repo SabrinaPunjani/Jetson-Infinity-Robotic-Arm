@@ -10,6 +10,7 @@
 #               pip install youtube_search
 #               pip install python_vlc
 #               pip install pytube
+#               pip install librosa
 #               instalation of 64 bit (32 will not work) version of VLC https://get.videolan.org/vlc/3.0.11/win64/vlc-3.0.11-win64.exe
 #              
 #
@@ -22,9 +23,10 @@ import time
 from youtube_search import YoutubeSearch
 import vlc
 from pytube import YouTube
+import librosa
 
 #------------initializing variables--------------------------
-#arm = xarm.Controller('USB')
+arm = xarm.Controller('USB')
 TIME = 40 #seconds song will play
 
 #--------------functions------------------------------------
@@ -63,10 +65,23 @@ def playAudio(file):
     #let song play for TIME seconds
     time.sleep(TIME)
  
-   
+def dance(file):
+    # load music file
+    y, sr = librosa.load(file)
+
+    # extract beat
+    tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
+
+    # map beat to arm movements
+    for i in range(TIME): #or for i in range(len(beats)) for entire song
+        if i % 2 == 0:
+            arm.set_position(x=300, y=0, z=200, speed=100)
+        else:
+            arm.set_position(x=300, y=0, z=0, speed=100)
+        time.sleep(60 / tempo)
         
-    
-    
+
+        
     
 
 #--------------------main-------------------------------------
