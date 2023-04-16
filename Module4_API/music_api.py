@@ -1,5 +1,5 @@
 #created on 2023-04-16 author @sabrina
-# MIT Standard License 
+#MIT Open Source Initiative License 
 ##############################################
 ##############################################
 #
@@ -9,50 +9,78 @@
 # requirements: 
 #               pip install youtube_search
 #               pip install python_vlc
-#               pip install pafy
-#               pip install youtube-dl
+#               pip install pytube
 #               instalation of 64 bit (32 will not work) version of VLC https://get.videolan.org/vlc/3.0.11/win64/vlc-3.0.11-win64.exe
-#  
+#              
+#
 #
 #---------------importing modules-----------------------
-
+from __future__ import unicode_literals
+import youtube_dl
 import xarm #robotic arm module
 import time 
 from youtube_search import YoutubeSearch
-import pafy
 import vlc
+from pytube import YouTube
 
 #------------initializing variables--------------------------
 #arm = xarm.Controller('USB')
-PAFY_BACKEND = "internal"
+TIME = 40 #seconds song will play
 
 #--------------functions------------------------------------
 
-#play the URL in VLC
-def playURL(playurl):
-    Instance = vlc.Instance()
-    player = Instance.media_player_new()
-    Media = Instance.media_new(playurl)
-    Media.get_mrl()
-    player.set_media(Media)
-    player.play()
+    
+def downloadVideo(url):
+    YouTube(url).streams.get_audio_only().download()
+
+    yt = YouTube(url)
+    yt.streams
+    try:
+        yt.filter(progressive=True, file_extension='mp4')
+        yt.order_by('resolution')[-1]
+        print("downloading")
+        yt.download()
+    except Exception as E:
+        print("already downloaded")
+    return (yt.title+'.mp4')
 
 
-
+def playAudio(file):
+    global TIME
+    # creating vlc media player object
+    media_player = vlc.MediaPlayer()
+    
+    # media object
+    media = vlc.Media("succducc - me & u.mp4")
+    
+    # setting media to the media player
+    media_player.set_media(media)
+    
+    
+    # start playing video
+    media_player.play()
+    
+    #let song play for TIME seconds
+    time.sleep(TIME)
+ 
+   
+        
+    
+    
+    
 
 #--------------------main-------------------------------------
 
 
+
+    
 song_name = 'succducc - me & u'
 results = YoutubeSearch(song_name, max_results=10).to_dict() #put results in a dictionary
 
 v = results.pop(0) #pop the first result from the result list
 url = ('https://www.youtube.com' + v['url_suffix'])
 
-video = pafy.new(url) #create pafty instance of our url
-audio= video.getbestaudio() #return highest res audio our provided youtube url
-playurl = audio.url #url for best audio
-
-playURL(playurl) #play audio with function defined above
+file = downloadVideo(url)
 
 
+playAudio(file)
