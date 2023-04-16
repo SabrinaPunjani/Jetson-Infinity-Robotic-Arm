@@ -51,7 +51,7 @@ def playAudio(file):
     media_player = vlc.MediaPlayer()
     
     # media object
-    media = vlc.Media("succducc - me & u.mp4")
+    media = vlc.Media(file)
     
     # setting media to the media player
     media_player.set_media(media)
@@ -74,7 +74,7 @@ def playAudio(file):
 
 
     
-song_name = 'succducc - me & u'
+song_name = input("enter song name")
 results = YoutubeSearch(song_name, max_results=10).to_dict() #put results in a dictionary
 
 v = results.pop(0) #pop the first result from the result list
