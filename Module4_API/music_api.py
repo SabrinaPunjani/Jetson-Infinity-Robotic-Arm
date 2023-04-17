@@ -10,7 +10,7 @@
 #               pip install youtube_search
 #               pip install python_vlc
 #               pip install pytube
-#               pip install librosa
+#               pip install tempocnn
 #               instalation of 64 bit (32 will not work) version of VLC https://get.videolan.org/vlc/3.0.11/win64/vlc-3.0.11-win64.exe
 #              
 #
@@ -20,11 +20,15 @@ from __future__ import unicode_literals
 import youtube_dl
 import xarm #robotic arm module
 import time 
+import threading
 from youtube_search import YoutubeSearch
 import vlc
 from pytube import YouTube
 import librosa
-
+import numpy
+import tempocnn
+from tempocnn.classifier import TempoClassifier
+from tempocnn.feature import read_features
 #------------initializing variables--------------------------
 arm = xarm.Controller('USB')
 TIME = 40 #seconds song will play
@@ -46,7 +50,27 @@ def downloadVideo(url):
         print("already downloaded")
     return (yt.title+'.mp4')
 
+def dance(file):
+    global TIME
+    # initialize the model (may be re-used for multiple files)
+    classifier = TempoClassifier('model')
 
+    # read the file's features
+    features = read_features(file)
+
+    # estimate the global tempo
+    tempo = classifier.estimate_tempo(features, interpolate=False)
+    # map beat to arm movements
+    for i in range(TIME):
+        if i % 2 == 0:
+            arm.set_position([3,270], [5, 715])
+            
+        else:
+            arm.set_position([3,750], [5, 415])
+            
+        time.sleep(60 / tempo)
+        
+        
 def playAudio(file):
     global TIME
     # creating vlc media player object
@@ -57,28 +81,29 @@ def playAudio(file):
     
     # setting media to the media player
     media_player.set_media(media)
-    
-    
-    # start playing video
+    def playmusic():
+        print("play")
+        
+       
+        
+    song_thread = threading.Thread(target=playmusic, args=([]))
+    song_thread.daemon = True
+    dance_thread = threading.Thread(target=dance, args=([file]))
+    dance_thread.daemon = True 
+    # start playing 
+    #song_thread.start()
+    #start dancing
+    dance_thread.start()
     media_player.play()
+        
+    time.sleep(TIME)#let song play for TIME seconds
     
-    #let song play for TIME seconds
-    time.sleep(TIME)
+   
+    
+    
+    
  
-def dance(file):
-    # load music file
-    y, sr = librosa.load(file)
 
-    # extract beat
-    tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
-
-    # map beat to arm movements
-    for i in range(TIME): #or for i in range(len(beats)) for entire song
-        if i % 2 == 0:
-            arm.set_position(x=300, y=0, z=200, speed=100)
-        else:
-            arm.set_position(x=300, y=0, z=0, speed=100)
-        time.sleep(60 / tempo)
         
 
         
