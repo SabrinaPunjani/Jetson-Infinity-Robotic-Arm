@@ -65,22 +65,22 @@ with mp_hands.Hands(
         index_finger = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
         x, y, z = int(index_finger.x * image.shape[1]), int(index_finger.y * image.shape[0]), int(index_finger.z * image.shape[1])
         def movement(direction):
-          position4 = arm.getPosition(servo4)
-          position5 = arm.getPosition(servo5)
-          position6 = arm.getPosition(servo6)
+          # position4 = arm.getPosition(servo4)
+          # position5 = arm.getPosition(servo5)
+          # position6 = arm.getPosition(servo6)
           
           if direction == "upleft":
-            arm.setPosition(4, 295, 10, wait=True)
+            arm.setPosition(4, 295, 50, wait=True)
           
-            arm.setPosition(4, 1000, 30,wait=True)
+            arm.setPosition(6, 900, 30,wait=True)
               
-            arm.setPosition(6, position6+16, wait=False)
+            
             return
             #time.sleep(3)
             #arm.setPosition([[1,500],[2, 500],[3, 300],[4,500],[5,500],[6,840]])
           elif direction == "downright":
             
-            arm.setPosition(4, 0, 50,wait=True)
+            arm.setPosition(6, 0, 50,wait=True)
             arm.setPosition(4, 700, 10, wait=True)
             
             return
@@ -88,7 +88,7 @@ with mp_hands.Hands(
             #arm.setPosition([[1,500],[2, 500],[3, 300],[4,500],[5,500],[6,165]])
           elif direction =="upright":
             arm.setPosition(4, 295, 10, wait=True)
-            arm.setPosition(4, 0, 30,wait=True)
+            arm.setPosition(6, 0, 30,wait=True)
             
            
               
@@ -96,7 +96,7 @@ with mp_hands.Hands(
             #time.sleep(3)
             #arm.setPosition([[1,300],[2, 500],[3, 475],[4,410],[5,700],[6,500]])
           elif direction =="downleft":
-            arm.setPosition(4, 1000, 50,wait=True)
+            arm.setPosition(6, 900, 50,wait=True)
            
             arm.setPosition(4, 700, 50, wait=True)
           
