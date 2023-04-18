@@ -26,9 +26,9 @@ import vlc
 from pytube import YouTube
 import librosa
 import numpy
-import tempocnn
-from tempocnn.classifier import TempoClassifier
-from tempocnn.feature import read_features
+# import tempocnn
+# from tempocnn.classifier import TempoClassifier
+# from tempocnn.feature import read_features
 #------------initializing variables--------------------------
 arm = xarm.Controller('USB')
 TIME = 40 #seconds song will play
