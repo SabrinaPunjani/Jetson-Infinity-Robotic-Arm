@@ -52,24 +52,25 @@ def downloadVideo(url):
 
 def dance(file):
     global TIME
-    # initialize the model (may be re-used for multiple files)
-    classifier = TempoClassifier('model')
+    # # initialize the model (may be re-used for multiple files)
+    # classifier = TempoClassifier('model')
 
-    # read the file's features
-    features = read_features(file)
+    # # read the file's features
+    # features = read_features(file)
 
-    # estimate the global tempo
-    tempo = classifier.estimate_tempo(features, interpolate=False)
-    # map beat to arm movements
+    # # estimate the global tempo
+    # tempo = classifier.estimate_tempo(features, interpolate=False)
+    # # map beat to arm movements
     for i in range(TIME):
         if i % 2 == 0:
-            arm.set_position([3,270], [5, 715])
+            arm.setPosition([3,270], [5, 715])
             
         else:
-            arm.set_position([3,750], [5, 415])
+            arm.setPosition([3,750], [5, 415])
             
-        time.sleep(60 / tempo)
-        
+        #time.sleep(60 / tempo)
+        if i%3==0:
+            time.sleep(1)
         
 def playAudio(file):
     global TIME
@@ -78,14 +79,15 @@ def playAudio(file):
     
     # media object
     media = vlc.Media(file)
-    
+    dance(file)
+    time.sleep(10)
     # setting media to the media player
     media_player.set_media(media)
     def playmusic():
         print("play")
         
        
-        
+    
     song_thread = threading.Thread(target=playmusic, args=([]))
     song_thread.daemon = True
     dance_thread = threading.Thread(target=dance, args=([file]))
