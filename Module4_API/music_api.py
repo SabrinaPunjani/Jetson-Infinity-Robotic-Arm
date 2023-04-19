@@ -40,7 +40,7 @@ def downloadVideo(url):
     YouTube(url).streams.get_audio_only().download()
 
     yt = YouTube(url)
-    yt.streams
+    title = yt.title
     try:
         yt.filter(progressive=True, file_extension='mp4')
         yt.order_by('resolution')[-1]
@@ -48,7 +48,7 @@ def downloadVideo(url):
         yt.download()
     except Exception as E:
         print("already downloaded")
-    return (yt.title+'.mp4')
+    return (title+'.mp4')
 
 def dance(file):
     global TIME
@@ -63,10 +63,10 @@ def dance(file):
     # # map beat to arm movements
     for i in range(TIME):
         if i % 2 == 0:
-            arm.setPosition([3,270], [5, 715])
+            arm.setPosition(3,270,wait=False)
             
         else:
-            arm.setPosition([3,750], [5, 415])
+            arm.setPosition(3,310,wait=False)
             
         #time.sleep(60 / tempo)
         if i%3==0:
@@ -77,27 +77,23 @@ def playAudio(file):
     # creating vlc media player object
     media_player = vlc.MediaPlayer()
     
+    dance_thread = threading.Thread(target=dance, args=([file]))
+    dance_thread.daemon = True 
+    
+    #start dancing
+    dance_thread.start()
+    
     # media object
     media = vlc.Media(file)
     dance(file)
     time.sleep(10)
     # setting media to the media player
     media_player.set_media(media)
-    def playmusic():
-        print("play")
+    
         
        
     
-    song_thread = threading.Thread(target=playmusic, args=([]))
-    song_thread.daemon = True
-    dance_thread = threading.Thread(target=dance, args=([file]))
-    dance_thread.daemon = True 
-    # start playing 
-    #song_thread.start()
-    #start dancing
-    dance_thread.start()
-    media_player.play()
-        
+    
     time.sleep(TIME)#let song play for TIME seconds
     
    
@@ -123,6 +119,5 @@ v = results.pop(0) #pop the first result from the result list
 url = ('https://www.youtube.com' + v['url_suffix'])
 
 file = downloadVideo(url)
-
 
 playAudio(file)
