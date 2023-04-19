@@ -5,12 +5,15 @@ MIT Open Source Initiative
 
 ##### Table of Contents  
 [Installation](#installation)  
+
 [Code Modules](#modules)  
 
-<a name="modules"/>
-# Modules
 
-#Module 3 - Surgeon:
+
+
+<a name="modules"/>
+
+# Module 3 - Surgeon:
 
 ## Module3.py
 
@@ -61,7 +64,7 @@ in progress. . .
 
 
 <a name="installation"/>
-# Installation (Linux, MacOS and Raspberry Pi)
+(Linux, MacOS and Raspberry Pi)
 $ sudo apt-get install python-dev libusb-1.0-0-dev libudev-dev
 $ sudo pip install --upgrade setuptools
 $ sudo pip install hidapi
