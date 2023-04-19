@@ -70,25 +70,28 @@ with mp_hands.Hands(
           # position6 = arm.getPosition(servo6)
           
           if direction == "upleft":
-            arm.setPosition(4, 295, 50, wait=True)
-          
-            arm.setPosition(6, 900, 30,wait=True)
-              
+            arm.setPosition(4, 295,10, wait=True)
             
-            return
+          
+            arm.setPosition(6, 900,10,wait=True)
+            
+              
             #time.sleep(3)
-            #arm.setPosition([[1,500],[2, 500],[3, 300],[4,500],[5,500],[6,840]])
+            return
+            
+            
           elif direction == "downright":
             
-            arm.setPosition(6, 0, 50,wait=True)
+            arm.setPosition(6, 0, 10,wait=True)
             arm.setPosition(4, 700, 10, wait=True)
             
-            return
             #time.sleep(3)
+            return
+            
             #arm.setPosition([[1,500],[2, 500],[3, 300],[4,500],[5,500],[6,165]])
           elif direction =="upright":
             arm.setPosition(4, 295, 10, wait=True)
-            arm.setPosition(6, 0, 30,wait=True)
+            arm.setPosition(6, 0, 10,wait=True)
             
            
               
@@ -96,10 +99,10 @@ with mp_hands.Hands(
             #time.sleep(3)
             #arm.setPosition([[1,300],[2, 500],[3, 475],[4,410],[5,700],[6,500]])
           elif direction =="downleft":
-            arm.setPosition(6, 900, 50,wait=True)
+            arm.setPosition(6, 900, 10,wait=True)
            
-            arm.setPosition(4, 700, 50, wait=True)
-          
+            arm.setPosition(4, 700, 10, wait=True)
+            
             return
             #arm.setPosition([[1,500],[2, 500],[3, 170],[4,900],[5,500],[6,500]])
           
@@ -132,6 +135,7 @@ with mp_hands.Hands(
              
         
         print(direction)
+        
         
         
        
