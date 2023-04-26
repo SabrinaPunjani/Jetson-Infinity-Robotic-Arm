@@ -3,6 +3,7 @@
 ##############################################
 ##############################################
 #
+##
 #Problem/Challenge:
 #Import songs from youtube and make the Robot dance to them
 #
@@ -36,11 +37,27 @@ TIME = 40 #seconds song will play
 #--------------functions------------------------------------
 
     
-def downloadVideo(url):
-    YouTube(url).streams.get_audio_only().download()
+def downloadVideo(url, song_name):
+    while(1):
+        try:
+            YouTube(url).streams.get_audio_only().download()
+            break
+        except:
+            continue
+            
 
     yt = YouTube(url)
-    title = yt.title
+    while True:
+        try:
+            title = yt.title
+            break
+        except:
+            print("Failed to get name. Retrying...")
+            time.sleep(1)
+            yt = YouTube(url)
+            continue    
+    #title = yt.title
+    print(title)
     try:
         yt.filter(progressive=True, file_extension='mp4')
         yt.order_by('resolution')[-1]
@@ -80,15 +97,17 @@ def playAudio(file):
     dance_thread = threading.Thread(target=dance, args=([file]))
     dance_thread.daemon = True 
     
-    #start dancing
-    dance_thread.start()
+    
     
     # media object
     media = vlc.Media(file)
-    dance(file)
+    #start dance
+    dance_thread.start()
     time.sleep(10)
     # setting media to the media player
     media_player.set_media(media)
+    media_player.play()
+    
     
         
        
@@ -118,6 +137,6 @@ results = YoutubeSearch(song_name, max_results=10).to_dict() #put results in a d
 v = results.pop(0) #pop the first result from the result list
 url = ('https://www.youtube.com' + v['url_suffix'])
 
-file = downloadVideo(url)
+file = downloadVideo(url, song_name)
 
 playAudio(file)

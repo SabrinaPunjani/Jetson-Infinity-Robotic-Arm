@@ -7,14 +7,17 @@ Created on Mon Mar 13 14:05:44 2023
 
 ########################################
 ########################################
-#CHALLENGE:
-#how would u scale the x and y movement to the position on the screen?
 #
-#
-#hint1: x and y coordinates on lines 112 and 113 correspond to position
-#
-#hint2: do u need to pass more paramters through the movement function?
-#
+# A script that follows a finger across a screen using your computers webcam
+
+# CHALLENGE:
+# how would u scale the x and y movement to the position on the screen?
+
+
+# hint1: x and y coordinates on lines 112 and 113 correspond to position
+
+# hint2: do u need to pass more paramters through the movement function?
+
 ########################################
 ########################################
 ########################################

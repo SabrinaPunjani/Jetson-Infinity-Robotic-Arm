@@ -3,9 +3,9 @@
 ##############################################
 #
 #Problem/Challenge:
-#Can you make the Robot do certain tasks using voice commands?
-#Tasks: grab the tool, clean the tool
-#Bonus Task: stop the surgery loop -> get to the last line of code that prints Surgery is Done! 
+# Can you make the Robot do certain tasks using voice commands?
+# Tasks: grab the tool, clean the tool
+# Bonus Task: stop the surgery loop -> get to the last line of code that prints Surgery is Done! 
 #
 #
 #Hint: see what is printing in the loop, try talking to the Robot and see what it prints. Call the funcntions defined in the code
