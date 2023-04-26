@@ -103,7 +103,7 @@ def playAudio(file):
     media = vlc.Media(file)
     #start dance
     dance_thread.start()
-    time.sleep(10)
+    #time.sleep(10)
     # setting media to the media player
     media_player.set_media(media)
     media_player.play()
